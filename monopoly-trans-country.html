@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="monopoly-trans-country">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `monopoly-trans-country`
+     * element to tranfer the ownership of a country 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class MonopolyTransCountry extends Polymer.Element {
+      static get is() { return 'monopoly-trans-country'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'monopoly-trans-country'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(MonopolyTransCountry.is, MonopolyTransCountry);
+  </script>
+</dom-module>
