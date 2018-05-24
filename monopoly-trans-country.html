@@ -114,7 +114,7 @@
                               detail: details
           }));  
         this.set('propertySelected','');
-        this.$.hint.style.visibility = 'hidden';
+        this.$.hint.style.visibility = 'visible';
         console.log(`detail:[${details}]`);                                 
       }
  
@@ -122,14 +122,13 @@
         if(this.propertySelected !== '') {    
             this.$.transferButton.style.backgroundColor = 'rgb(24, 153, 24)';  
             this.$.transferButton.style.color = 'white';          
-            this.$.transferButton.removeAttribute('disabled');   
-            this.$.hint.style.visibility = 'hidden';       
+            this.$.transferButton.removeAttribute('disabled'); 
+            this.$.hint.style.visibility = 'hidden';         
         }  
         else {
             this.$.transferButton.style.backgroundColor = 'rgb(165, 177, 165)';  
             this.$.transferButton.style.color = 'rgb(226, 222, 222)';          
             this.$.transferButton.setAttribute('disabled','true');   
-            this.$.hint.style.visibility = 'visible'; 
            }      
       }
     } // class
