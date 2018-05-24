@@ -17,14 +17,27 @@
       </style>
     </custom-style>
   </head>
-  <body>
+  <body>                    
     <div class="vertical-section-container centered">
       <h3>Basic monopoly-trans-country demo</h3>
       <demo-snippet>
         <template>
-          <monopoly-trans-country></monopoly-trans-country>
+          <monopoly-trans-country           
+          properties='[{"id":"LJ5cjAK8vRPIP2zCwHLo","name":"Israel","price":10000,"owner":"LJ5cjAK8vRPIP2zCwHLo"},{"id":"EeyWYPa6KAgc7cyLhn7Y","name":"Portugal","price":15000,"owner":"gzxdoKNTIxGFxASHA8Fo"},{"id":"XiFffSwBGTN3bZa0gGYO","name":"Argentina","price":12000,"owner":"gzxdoKNTIxGFxASHA8Fo"} ]'
+          new-owner= '[{"id":"LJ5cjAK8vRPIP2zCwHLo","alias":"DreamTeam","amount":3690,"status":""}]'  
+          >
+          </monopoly-trans-country>
         </template>
       </demo-snippet>
     </div>
+
+    <script>
+        const transferOwnerShip = (event) => {
+          console.log(`event.detail:[${event.detail}]`);
+         }
+
+        const monopolytrans = document.querySelector('monopoly-trans-country');
+        monopolytrans.addEventListener('  ', transferOwnerShip);
+    </script>
   </body>
 </html>
