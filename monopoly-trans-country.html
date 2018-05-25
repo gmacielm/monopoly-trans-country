@@ -18,30 +18,35 @@
       font-family: Arial, Helvetica, sans-serif;
       font-size: 34px;
       font-weight: bold;
-      color: rgb(24, 153, 24);      
+      color: rgb(24, 153, 24);
     }
 
      paper-button.green {
+         background-color: rgb(24, 153, 24);
+         color: white;
+        margin-top: 25px;
+      }
+
+      paper-button.green[disabled]{
         background-color: rgb(165, 177, 165);
         color: rgb(226, 222, 222);
-        margin-top: 25px; 
       }
 
     h2#hint{
       visibility : hidden;
       display: inline;
-      text-align: center; 
+      text-align: center;
       padding-left: 35%;
     }
 
     </style>
     <h2>TRANSACTION: <span class="rate-header">Transfer ownership of</span></h2>
 
-    <paper-card image="./images/transfer_ownership.jpg"> 
-      <div class="card-content">      
+    <paper-card image="./images/transfer_ownership.jpg">
+      <div class="card-content">
        <!--  <div class="container-selects"> -->
             <paper-dropdown-menu noink no-animations Label="Choose a country">
-                <paper-listbox
+                <paper-listbox id="listbox"
                         slot="dropdown-content"
                         attr-for-selected="selected-item"
                         selected="{{propertySelected}}">
@@ -51,22 +56,23 @@
                   </paper-listbox>
             </paper-dropdown-menu>
         <!-- </div> -->
-        <div class="rate-name"> 
-          to player <span class="new_owner">[[[ownerAlias]]]</span> 
+        <div class="rate-name">
+          to player <span class="new_owner">[[ownerAlias]]</span>
         </div>
+
         <div class="button_accept">
             <paper-button toggles raised id="transferButton" class="green" on-click="transferOwnership" disabled>TRANSFER!</paper-button>
         </div>
       </div>
-    </paper-card> 
-    
+    </paper-card>
+
     <h2 id="hint" class"sucess">SUCCESS!</h2>
   </template>
 
   <script>
     /**
      * `monopoly-trans-country`
-     * element to tranfer the ownership of a country 
+     * element to tranfer the ownership of a country
      *
      * @customElement
      * @polymer
@@ -105,35 +111,30 @@
         this.set('ownerAlias',this.newOwner[0].alias);
       }
 
-      transferOwnership(){        
-        const details = [{ owner:this.newOwner[0].id, property:this.propertySelected }];        
+      transferOwnership(){
+        const details = { owner:this.newOwner[0].id, property:this.propertySelected };
         this.set('transaction',details);
-        this.dispatchEvent(new CustomEvent('transfer-owner-happend', {                 
+        this.dispatchEvent(new CustomEvent('transfer-owner-happend', {
                               bubbles:  true,
-                              composed: true, 
+                              composed: true,
                               detail: details
-          }));  
+          }));
         this.set('propertySelected','');
         this.$.hint.style.visibility = 'visible';
-        console.log(`detail:[${details}]`);                                 
+        console.log(JSON.stringify(details));
       }
- 
-      propertyChange(){        
-        if(this.propertySelected !== '') {    
-            this.$.transferButton.style.backgroundColor = 'rgb(24, 153, 24)';  
-            this.$.transferButton.style.color = 'white';          
-            this.$.transferButton.removeAttribute('disabled'); 
-            this.$.hint.style.visibility = 'hidden';         
-        }  
+
+      propertyChange(){
+        if(this.propertySelected !== '') {
+          this.$.transferButton.removeAttribute('disabled');
+          this.$.hint.style.visibility = 'hidden';
+        }
         else {
-            this.$.transferButton.style.backgroundColor = 'rgb(165, 177, 165)';  
-            this.$.transferButton.style.color = 'rgb(226, 222, 222)';          
-            this.$.transferButton.setAttribute('disabled','true');   
-           }      
+          this.$.transferButton.setAttribute('disabled',true);
+        }
       }
     } // class
 
     window.customElements.define(MonopolyTransCountry.is, MonopolyTransCountry);
   </script>
 </dom-module>
-
