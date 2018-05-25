@@ -15,16 +15,14 @@
     .rate-name { color: var(--paper-grey-600); margin: 10px 0; }
 
     .new_owner {
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 34px;
-      font-weight: bold;
-      color: rgb(24, 153, 24);
+      color: #111;
     }
 
      paper-button.green {
-         background-color: rgb(24, 153, 24);
+         background-color: #4CBB17;
          color: white;
         margin-top: 25px;
+        padding:10px 20px;
       }
 
       paper-button.green[disabled]{
@@ -40,12 +38,11 @@
     }
 
     </style>
-    <h2>TRANSACTION: <span class="rate-header">Transfer ownership of</span></h2>
+    <h2>Detalles de la transferencia</h2>
 
-    <paper-card image="./images/transfer_ownership.jpg">
-      <div class="card-content">
+
        <!--  <div class="container-selects"> -->
-            <paper-dropdown-menu noink no-animations Label="Choose a country">
+            <paper-dropdown-menu noink no-animations Label="Elige un país:">
                 <paper-listbox id="listbox"
                         slot="dropdown-content"
                         attr-for-selected="selected-item"
@@ -57,16 +54,14 @@
             </paper-dropdown-menu>
         <!-- </div> -->
         <div class="rate-name">
-          to player <span class="new_owner">[[ownerAlias]]</span>
+          A jugador <span class="new_owner">[[ownerAlias]]</span>
         </div>
 
         <div class="button_accept">
-            <paper-button toggles raised id="transferButton" class="green" on-click="transferOwnership" disabled>TRANSFER!</paper-button>
+            <paper-button toggles raised id="transferButton" class="green" on-click="transferOwnership" disabled>Transferir</paper-button>
         </div>
-      </div>
-    </paper-card>
-
-    <h2 id="hint" class"sucess">SUCCESS!</h2>
+    
+    <h2 id="hint" class"sucess">Éxito</h2>
   </template>
 
   <script>
