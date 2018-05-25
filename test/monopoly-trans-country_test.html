@@ -15,7 +15,8 @@
 
     <test-fixture id="BasicTestFixture">
       <template>
-        <monopoly-trans-country></monopoly-trans-country>
+        <monopoly-trans-country properties='[{"id":"LJ5cjAK8vRPIP2zCwHLo","name":"Israel","price":10000,"owner":"LJ5cjAK8vRPIP2zCwHLo"},{"id":"EeyWYPa6KAgc7cyLhn7Y","name":"Portugal","price":15000,"owner":"gzxdoKNTIxGFxASHA8Fo"},{"id":"XiFffSwBGTN3bZa0gGYO","name":"Argentina","price":12000,"owner":"gzxdoKNTIxGFxASHA8Fo"} ]'
+        new-owner= '[{"id":"LJ5cjAK8vRPIP2zCwHLo","alias":"DreamTeam","amount":3690,"status":""}]'></monopoly-trans-country>
       </template>
     </test-fixture>
 
@@ -28,22 +29,37 @@
     <script>
       suite('monopoly-trans-country', () => {
 
-        test('instantiating the element with default properties works', () => {
-          const element = fixture('BasicTestFixture');
-          assert.equal(element.prop1, 'monopoly-trans-country');
-          const elementShadowRoot = element.shadowRoot;
-          const elementHeader = elementShadowRoot.querySelector('h2');
-          assert.equal(elementHeader.innerHTML, 'Hello monopoly-trans-country!');
+        setup(function () {
+            element = fixture('BasicTestFixture');
+            elementShadowDom = element.shadowRoot;
         });
 
-        test('setting a property on the element works', () => {
-          // Create a test fixture
-          const element = fixture('ChangedPropertyTestFixture');
-          assert.equal(element.prop1, 'new-prop1');
-          const elementShadowRoot = element.shadowRoot;
-          const elementHeader = elementShadowRoot.querySelector('h2');
-          assert.equal(elementHeader.innerHTML, 'Hello new-prop1!');
+        test('Button is disable at initialize the component', () => {
+            const disabledStatus = elementShadowDom.querySelector('#transferButton').getAttribute('disabled');
+            assert.strictEqual(disabledStatus, 'true');
         });
+
+        test('Button is able to post the transaction', () => {
+            const listbox=elementShadowDom.querySelector('#listbox');
+            listbox.setAttribute('selected','LJ5cjAK8vRPIP2zCwHLo');
+            const disabledStatus = elementShadowDom.querySelector('#transferButton').hasAttribute('disabled');
+            assert.strictEqual(disabledStatus, false);
+        });
+
+        test('checking the result of transaction posting', () => {
+          document.addEventListener('transfer-owner-happend', (event)=>{
+            const result=event.detail;
+            assert.deepEqual(result,
+              {"owner":"LJ5cjAK8vRPIP2zCwHLo","property":"LJ5cjAK8vRPIP2zCwHLo"});
+          });
+          const listbox=elementShadowDom.querySelector('#listbox');
+          listbox.setAttribute('selected','LJ5cjAK8vRPIP2zCwHLo');
+          const button = elementShadowDom.querySelector('#transferButton');
+          button.click();
+
+        });
+
+
 
       });
     </script>
