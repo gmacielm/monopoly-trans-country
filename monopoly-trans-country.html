@@ -88,7 +88,8 @@
           },
           newOwner: {
             type: Object,
-            value:{}
+            value:{},
+            reflectToAttribute: true,
           },
           ownerAlias: {
             type: Object,
@@ -103,11 +104,11 @@
 
       connectedCallback(){
         super.connectedCallback();
-        this.set('ownerAlias',this.newOwner[0].alias);
+        this.set('ownerAlias',this.newOwner.alias);
       }
 
       transferOwnership(){
-        const details = { owner:this.newOwner[0].id, property:this.propertySelected };
+        const details = { owner:this.newOwner.id, property:this.propertySelected };
         this.set('transaction',details);
         this.dispatchEvent(new CustomEvent('transfer-owner-happend', {
                               bubbles:  true,
